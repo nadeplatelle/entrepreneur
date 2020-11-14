@@ -1,0 +1,9 @@
+.display__grid {
+  display: flex;
+  flex-flow: row wrap;
+  max-width: 1000px;
+}
+
+.Button {
+  margin-left: 15px;
+}

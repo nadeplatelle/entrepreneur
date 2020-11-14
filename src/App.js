@@ -10,7 +10,7 @@ function App() {
   return (
     <div className="App">
       <div className="App__header">
-        <h1>App header</h1>
+        <h1>Entrepreneur</h1>
     
       </div>
       <div className="App__body">

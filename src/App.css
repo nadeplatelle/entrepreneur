@@ -6,6 +6,9 @@
 .App__header {
   background-color: grey;
   height: 75px;
+  text-align: right;
+  padding-right: 50px;
+  color: indigo;
 }
 
 .App__body {
