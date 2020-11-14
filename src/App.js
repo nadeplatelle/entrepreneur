@@ -1,23 +1,43 @@
-import logo from './logo.svg';
 import './App.css';
+import Navigation from './Navigation'
+import Main from './Main'
+import Jobs from './Jobs'
+import Customer from './Customer'
+import Suppliers from './Suppliers'
+import {Switch, Route} from 'react-router-dom'
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="App__header">
+        <h1>App header</h1>
+    
+      </div>
+      <div className="App__body">
+        <div className="Nav">
+         <Navigation/>
+        </div>
+        <div className="Main">
+        <Switch>
+      <Route path = '/customers'>
+      
+         <Customer/>
+      </Route>
+      <Route path = '/Jobs'>
+    
+         <Jobs/>
+      </Route>
+      <Route path = '/Suppliers'>
+         <Suppliers/>
+      </Route>
+      <Route path = '/'>
+  
+         <Main/>
+      </Route>
+      </Switch>
+        </div>
+      </div>
+
     </div>
   );
 }

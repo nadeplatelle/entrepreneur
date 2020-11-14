@@ -1,0 +1,19 @@
+.Navigation {
+  height: 90vh;
+  background-color: lightgray;
+  width: 200px;
+  padding-top: 50px;
+  padding-left: 20px;
+}
+
+.card {
+  display: flex;
+  flex: row;
+  padding-bottom: 20px;
+}
+
+.link {
+  color: black;
+  padding-left: 15px;
+  text-decoration: none;
+}
