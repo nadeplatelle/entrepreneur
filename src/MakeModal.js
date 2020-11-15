@@ -10,7 +10,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import './display.css'
 
 
-export default function FormDialog() {
+export default function FormDialog({functionname}) {
     const [name, setName] = useState("");
 const [contact, setContact] = useState("");
 //const [description, setDescription] = useState("");
@@ -29,7 +29,7 @@ const [notes, setNotes] = useState("");
   };
   const handleSave = (event) => {
         event.preventDefault()
-        const SaveCustomer = firebaseApp.functions().httpsCallable('SaveCustomer')
+        const SaveCustomer = firebaseApp.functions().httpsCallable(functionname)
        SaveCustomer({name: name, 
                     contact: contact, 
                     email: email,
@@ -47,7 +47,7 @@ const [notes, setNotes] = useState("");
   return (
     <div className="Button">
       <Button variant="outlined" color="primary"  onClick={handleClickOpen}>
-        Add New Customer
+        Add New 
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Add New Customer</DialogTitle>

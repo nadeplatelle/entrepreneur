@@ -16,8 +16,8 @@ function Customer() {
     return (
         <div>
              
-             <h1>Customers</h1>
-             <FormDialog/>
+             <h1 className="h1">Customers</h1>
+             <FormDialog functionname={'SaveCustomer'} />
              <div className="display__grid">
             <RecipeReviewCard/>
             <RecipeReviewCard/>
