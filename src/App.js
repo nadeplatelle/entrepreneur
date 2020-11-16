@@ -1,9 +1,9 @@
 import './App.css';
 import Navigation from './Navigation'
-import Main from './Main'
-import Jobs from './Jobs'
-import Customer from './Customer'
-import Suppliers from './Suppliers'
+import Main from './pages/Main'
+import Jobs from './pages/Jobs'
+import Customer from './pages/Customer'
+import Suppliers from './pages/Suppliers'
 import {Switch, Route} from 'react-router-dom'
 
 function App() {
@@ -39,7 +39,7 @@ function App() {
       </div>
 
     </div>
-  );
+   ) ;
 }
 
 export default App;

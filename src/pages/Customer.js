@@ -1,7 +1,7 @@
 import React from 'react'
-import FormDialog from './MakeModal'
-import RecipeReviewCard from './Card'
-import './display.css'
+import FormDialog from '../MakeModal'
+import RecipeReviewCard from '../Card'
+import '../display.css'
 
 // import {db} from './firebase.js'
 
