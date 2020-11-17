@@ -1,17 +1,23 @@
-import React from 'react'
+import React,{useState, useEffect} from 'react'
 import FormDialog from '../MakeModal'
 import RecipeReviewCard from '../Card'
 import '../display.css'
+import {db} from '../firebase'
 
-// import {db} from './firebase.js'
 
-// const getNextReviews = async() => {
-//     const ref = db.collection('Customers')
-//     const data = await ref.get()
 
-// }
+ function Customer() {
+    const [customers, setCustomers] = useState([])
 
-function Customer() {
+    useEffect(() => {
+        db.collection('Customers').onSnapshot(snapshot => {
+          setCustomers(snapshot.docs.map(doc => ({
+            id: doc.id,
+            customer: doc.data()
+           })) )
+        })
+     }, [])
+    
     
     return (
         <div>
@@ -19,15 +25,14 @@ function Customer() {
              <h1 className="h1">Customers</h1>
              <FormDialog functionname={'SaveCustomer'} />
              <div className="display__grid">
-            <RecipeReviewCard/>
-            <RecipeReviewCard/>
-            <RecipeReviewCard/>
-            <RecipeReviewCard/>
-            <RecipeReviewCard/>
-            <RecipeReviewCard/>
-            <RecipeReviewCard/>
-            <RecipeReviewCard/>
-            <RecipeReviewCard/>
+
+             {
+        customers.map(({id, customer}) => (
+          <RecipeReviewCard type = "Customers" id={id} title={customer.name} subheader={customer.contact} email={customer.email} phone={customer.phone} notes={customer.notes}/>
+            ))
+           }   
+
+        
             </div>
         </div>
     )

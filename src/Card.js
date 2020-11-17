@@ -9,11 +9,14 @@ import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
-import WhatsAppIcon from '@material-ui/icons/WhatsApp';
-import MailOutlineIcon from '@material-ui/icons/MailOutline';
+import EditIcon from '@material-ui/icons/Edit';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import './Card.css'
+import CustomizedMenus from './PopupMenu'
+import {db} from './firebase'
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditDialog from './EditDialog'
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function RecipeReviewCard() {
+export default function RecipeReviewCard({type, id, title, subheader, email, phone, notes}) {
 
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
@@ -48,6 +51,10 @@ export default function RecipeReviewCard() {
     const handleExpandClick = () => {
       setExpanded(!expanded);
     };
+
+    const DeleteMe = () => {
+      db.collection(type).doc(id).delete();
+    } 
   
     return (
       <Card className={classes.root}>
@@ -55,27 +62,25 @@ export default function RecipeReviewCard() {
        
           action={
             <IconButton aria-label="settings">
-              <MoreVertIcon />
+              <CustomizedMenus />
             </IconButton>
           }
-          title="Tekvision"
-          subheader="Robert Platelle"
+          title={title}
+          subheader={subheader}
         />
         
         <CardContent>
           <Typography variant="body2" color="textSecondary" component="p">
-            Email:  Robert@tekvision.co.za
+            Email:  {email}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Phone:  073 362 3881
+            Phone:  {phone}
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
-          <WhatsAppIcon/>
-          </IconButton>
-          <IconButton aria-label="share">
-          < MailOutlineIcon/>
+        <EditDialog type = {type} id={id} title={title} subheader={subheader} emailadd={email} phonenum={phone} notes2={notes}/>
+          <IconButton aria-label="Delete" onClick={DeleteMe} >
+          <DeleteIcon/>
           </IconButton>
           <IconButton
             className={clsx(classes.expand, {
@@ -87,13 +92,13 @@ export default function RecipeReviewCard() {
           >
             <ExpandMoreIcon />
           </IconButton>
+          
         </CardActions>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
             <Typography paragraph>Notes:</Typography>
             <Typography paragraph>
-              CCTV, Fire Detection and Access Control,
-              Network Cables.
+              {notes}
             </Typography>
           
           </CardContent>
