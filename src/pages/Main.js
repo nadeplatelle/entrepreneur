@@ -1,13 +1,14 @@
-import React from 'react'
-import CustomizedMenus from '../PopupMenu'
+import React from "react";
 
-function Main() {
-    return (
-        <div>
-            <h1>Main</h1>
-            <CustomizedMenus/>
-        </div>
-    )
+
+
+
+export default function Main() {
+   
+
+  return (
+<h1>Main</h1>
+  );
 }
 
-export default Main
+

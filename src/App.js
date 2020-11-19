@@ -31,7 +31,7 @@ function App() {
          <Suppliers/>
       </Route>
       <Route path = '/'>
-  
+       
          <Main/>
       </Route>
       </Switch>

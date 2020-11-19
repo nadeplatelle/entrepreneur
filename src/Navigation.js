@@ -1,6 +1,5 @@
 import React from 'react'
 import './Navigation.css'
-import { makeStyles } from '@material-ui/core/styles';
 import {Link} from 'react-router-dom'
 import {Card} from '@material-ui/core'
 import CreditCardIcon from '@material-ui/icons/CreditCard';
@@ -12,16 +11,16 @@ import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 
 
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-      width: '100%',
-      maxWidth: 360,
-      backgroundColor: theme.palette.background.paper,
-    },
-  }));
+// const useStyles = makeStyles((theme) => ({
+//     root: {
+//       width: '100%',
+//       maxWidth: 360,
+//       backgroundColor: theme.palette.background.paper,
+//     },
+//   }));
 
 function Navigation() {
-    const classes = useStyles();
+   
     return (
         <div className="Navigation">
           <Card class="card">
