@@ -16,26 +16,28 @@ const useStyles = makeStyles((theme) => ({
   },
   textField: {
     marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    marginTop: 15, 
+    marginRight: theme.spacing(1), 
+    marginTop: 15,
     width: 260,
   },
 }));
 
+
+
 export default function CreateJobDialog() {
   const [customers, setCustomers] = useState([])
     const [value, setValue] = useState(null);
-    const [invoicedby, setInvoicedby] = useState(null);
-    const [jobtype, setJobtype] = useState(null);
-    const [timequoted, setTimequoted] = useState("");
-    const [timespent, setTimespent] = useState("");
-    const [totalprice, setTotalprice] = useState("");
-    const [datequoted, setDatequoted] = useState("");
-    const [dateInvoiced, setDateinvoiced] = useState("");
-    const [materialnotes, setMaterialnotes] = useState("");
+    const [invoicedBy, setInvoicedby] = useState("");
+    const [jobType, setJobtype] = useState("");
+    const [timeQuoted, setTimequoted] = useState("");
+    const [timeSpent, setTimespent] = useState("");
+    const [totalPrice, setTotalprice] = useState("");
+    const [dateQuoted, setDatequoted] = useState(null);
+    const [dateInvoiced, setDateinvoiced] = useState(null);
+    const [materialsNotes, setMaterialsnotes] = useState("");
     const InvBy = [
-      { "name": "Tekvision", "code": "TK" },
-      { "name": "Absolute Fire", "code": "AB" }]
+      { "name": "Tekvision" },
+      { "name": "Absolute Fire" }]
     const JobTyp = [
       { "name": "Fire Installation", "code": "FI" },
       { "name": "Fire Service", "code": "FS" },
@@ -56,6 +58,8 @@ export default function CreateJobDialog() {
    const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
+
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -65,25 +69,24 @@ export default function CreateJobDialog() {
   };
   const handleSave = (event) => {
         event.preventDefault()
-        const SaveJob = firebaseApp.functions().httpsCallable('SaveJob')
+        const SaveJob = firebaseApp.functions().httpsCallable('SaveJob2')
        SaveJob({customer: value, 
-                 invoicedby: invoicedby, 
-                 jobtype: jobtype,
-                 timequoted: timequoted,
-                 timespent: timespent,
-                 totalprice: totalprice,
-                 datequoted: datequoted,
+                 invoicedBy: invoicedBy, 
+                 jobType: jobType,
+                 timeQuoted: timeQuoted,
+                 timeSpent: timeSpent,
+                 totalPrice: totalPrice,
+                 dateQuoted: dateQuoted,
                  dateInvoiced: dateInvoiced,
-                 materialnotes: materialnotes
+                 materialsNotes: materialsNotes
                 })
                 setInvoicedby('')
                 setJobtype('')
                 setTimequoted('')
                 setTimespent('')
                 setTotalprice('')
-                setDatequoted('')
-                setDateinvoiced('')
-                setMaterialnotes('')
+ 
+                setMaterialsnotes('')
      setOpen(false);
    };
 
@@ -113,7 +116,7 @@ export default function CreateJobDialog() {
         options={InvBy}
         id='code'
         label='name'
-        value={invoicedby}
+        value={invoicedBy}
         onChange={(val) => setInvoicedby(val)}
       /> 
        <Dropdown
@@ -122,15 +125,16 @@ export default function CreateJobDialog() {
         options={JobTyp}
         id='code'
         label='name'
-        value={jobtype}
+        value={jobType}
         onChange={(val) => setJobtype(val)}
       /> 
        <TextField
                  id="datequoted"
                  label="Date Quoted"
                  type="date"
-                 defaultValue="2020-05-24"
+                 defaultValue={dateQuoted}
                  className={classes.textField}
+                 onChange={(e) => setDatequoted(e.target.value)}
                  InputLabelProps={{
              shrink: true,
              }}
@@ -139,8 +143,9 @@ export default function CreateJobDialog() {
                  id="dateinvoiced"
                  label="Date Invoiced"
                  type="date"
-                 defaultValue="2020-05-24"
+                 defaultValue={dateInvoiced}
                  className={classes.textField}
+                 onChange={(e) => setDateinvoiced(e.target.value)}
                  InputLabelProps={{
              shrink: true,
              }}
@@ -148,7 +153,7 @@ export default function CreateJobDialog() {
     
            <TextField
             margin="dense"
-            value={timequoted} onChange={(e) => setTimequoted(e.target.value)}
+            value={timeQuoted} onChange={(e) => setTimequoted(e.target.value)}
             id="timequoted"
             label="Time quoted"
             type="text"
@@ -157,7 +162,7 @@ export default function CreateJobDialog() {
           />
            <TextField
             margin="dense"
-            value={timespent} onChange={(e) => setTimespent(e.target.value)}
+            value={timeSpent} onChange={(e) => setTimespent(e.target.value)}
             id="timespent"
             label="Time Spent"
             type="text"
@@ -166,7 +171,7 @@ export default function CreateJobDialog() {
           />
           <TextField
             margin="dense"
-            value={totalprice} onChange={(e) => setTimespent(e.target.value)}
+            value={totalPrice} onChange={(e) => setTotalprice(e.target.value)}
             id="totalprice"
             label="Total Price"
             type="text"
@@ -175,7 +180,7 @@ export default function CreateJobDialog() {
          
           <TextField
             margin="dense"
-            value={materialnotes} onChange={(e) => setMaterialnotes(e.target.value)}
+            value={materialsNotes} onChange={(e) => setMaterialsnotes(e.target.value)}
             id="notes"
             label="notes"
             type="text"
@@ -183,7 +188,7 @@ export default function CreateJobDialog() {
             multiline
             rows="3"
           />
-          
+         
 
           </form>
         </DialogContent>
@@ -198,4 +203,5 @@ export default function CreateJobDialog() {
       </Dialog>
     </div>
   );
+
 }

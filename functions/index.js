@@ -14,14 +14,14 @@ exports.SaveCustomer = functions.https.onCall((data, context) => {
     })
 })
 
-exports.SaveJob = functions.https.onCall((data, context) => {
+exports.SaveJob2 = functions.https.onCall((data, context) => {
     return admin.firestore().collection('Jobs').add({
         customer: data.customer,
-        Invoicedby: data.Invoicedby,
+        invoicedBy: data.invoicedBy,
         jobType: data.jobType,
         timeQuoted: data.timeQuoted,
         timeSpent: data.timeSpent,
-        materialsNotes: data.materialsnotes,
+        materialsNotes: data.materialsNotes,
         totalPrice: data.totalPrice,
         dateQuoted: data.dateQuoted,
         dateInvoiced: data.dateInvoiced
