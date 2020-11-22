@@ -15,3 +15,9 @@
 .dropdown {
   margin-top: 20px;
 }
+
+.search {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+}

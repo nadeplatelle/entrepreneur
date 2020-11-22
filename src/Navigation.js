@@ -5,6 +5,7 @@ import {Card} from '@material-ui/core'
 import CreditCardIcon from '@material-ui/icons/CreditCard';
 import PeopleIcon from '@material-ui/icons/People';
 import WorkIcon from '@material-ui/icons/Work';
+import HomeIcon from '@material-ui/icons/Home';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import ScheduleIcon from '@material-ui/icons/Schedule';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
@@ -23,6 +24,10 @@ function Navigation() {
    
     return (
         <div className="Navigation">
+            <Card class="card">
+           <HomeIcon/>
+           <Link to="/" class="link">Home</Link>
+           </Card>
           <Card class="card">
            <PeopleIcon/>
            <Link to="/customers" class="link">Customers</Link>

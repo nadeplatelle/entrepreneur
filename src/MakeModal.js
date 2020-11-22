@@ -17,7 +17,7 @@ const [contact, setContact] = useState("");
 const [email, setEmail] = useState("");
 const [phone, setPhone] = useState("");
 const [notes, setNotes] = useState("");
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);

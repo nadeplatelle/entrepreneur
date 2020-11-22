@@ -38,3 +38,14 @@ exports.SaveSupplier = functions.https.onCall((data, context) => {
     })
 })
 
+exports.SaveCustomer2 = functions.https.onCall((data, context) => {
+    return admin.firestore().collection('Customers2').add({
+        name: data.name,
+        contact: data.contact,
+        email: data.email,
+        phone: data.phone,
+        notes: data.notes,
+        buildings: data.buildings
+    })
+})
+

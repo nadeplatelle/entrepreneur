@@ -3,26 +3,45 @@ import FormDialog from '../MakeModal'
 import RecipeReviewCard from '../Card'
 import '../display.css'
 import {db} from '../firebase'
+import Dropdown from '../dropdown'
 
 
 
  function Customer() {
     const [customers, setCustomers] = useState([])
+    const [value, setValue] = useState(null)
 
     useEffect(() => {
-        db.collection('Customers').onSnapshot(snapshot => {
+        db.collection('Customers').orderBy('name').onSnapshot(snapshot => {
           setCustomers(snapshot.docs.map(doc => ({
             id: doc.id,
-            customer: doc.data()
+            customer: doc.data(),
+            customername: doc.data().name
            })) )
         })
      }, [])
+     function filterByValue(array, string) {
+      return array.filter(o =>
+          Object.keys(o).some(k => o[k].toLowerCase().includes(string.toLowerCase())));
+  }
     
+     
     
     return (
         <div>
              
              <h1 className="h1">Customers</h1>
+             <div className="search">
+             <Dropdown
+                   className="dropdown"
+                   prompt='Find customer...'
+                   options={customers}
+                   id='id'
+                   label='customername'
+                   value={value}
+                   onChange={(val) => setValue(val)}
+      /> 
+      </div>
              <FormDialog functionname={'SaveCustomer'} />
              <div className="display__grid">
 
