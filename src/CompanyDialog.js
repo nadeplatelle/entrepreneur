@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {db} from './firebase'
+import firebaseApp from './firebase'
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -7,59 +7,60 @@ import EditIcon from '@material-ui/icons/Edit';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import IconButton from '@material-ui/core/IconButton';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import './display.css'
+import {Tooltip} from '@material-ui/core'
+import AddIcon from '@material-ui/icons/Add';
 
 
-export default function EditDialog({type, id, title, subheader, emailadd, phonenum, notes2}) {
+export default function CompanyDialog({functionname, heading, id, title, subheader, emailadd, phonenum, notes2}) {
+  
     const [name, setName] = useState(title);
 const [contact, setContact] = useState(subheader);
-//const [description, setDescription] = useState("");
 const [email, setEmail] = useState(emailadd);
 const [phone, setPhone] = useState(phonenum);
 const [notes, setNotes] = useState(notes2);
   const [open, setOpen] = React.useState(false);
+
+
 
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
-   // console.log (name, contact)
     setOpen(false);
   };
   const handleSave = (event) => {
         event.preventDefault()
-       
-        db.collection(type).doc(id).update({name: name, 
-                                            contact: contact, 
-                                            email: email,
-                                            phone: phone,
-                                            notes: notes
-                                           })
+        const EditRecord = firebaseApp.functions().httpsCallable(functionname)
+
+        EditRecord({id: id,
+                    name: name, 
+                      contact: contact, 
+                      email: email,
+                      phone: phone,
+                      notes: notes
+                    })
   
      setOpen(false);
-   };
+
+    };
       
  
 
 
   return (
     <div className="Button">
-      {/* <Button variant="outlined" color="primary"  onClick={handleClickOpen}>
-        Edit Record
-      </Button> */}
+      
         <IconButton aria-label="Edit" onClick={handleClickOpen}>
-          <EditIcon/>
+          {functionname.substring(0, 3)==='Edi'?<Tooltip title="Edit"><EditIcon/></Tooltip>:<Tooltip title="Add new"><AddIcon/></Tooltip>}
           </IconButton>
-
+          
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Add New Customer</DialogTitle>
+        <DialogTitle id="form-dialog-title">{heading}</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-           Edit Record
-          </DialogContentText>
+  
           <form>
           <TextField
             autoFocus

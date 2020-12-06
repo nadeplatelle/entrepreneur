@@ -4,7 +4,7 @@ const admin = require('firebase-admin')
 admin.initializeApp();
 
 
-exports.SaveCustomer = functions.https.onCall((data, context) => {
+exports.Customer = functions.https.onCall((data, context) => {
     return admin.firestore().collection('Customers').add({
         name: data.name,
         contact: data.contact,
@@ -14,9 +14,9 @@ exports.SaveCustomer = functions.https.onCall((data, context) => {
     })
 })
 
-exports.SaveJob2 = functions.https.onCall((data, context) => {
+exports.Job = functions.https.onCall((data, context) => {
     return admin.firestore().collection('Jobs').add({
-        customer: data.customer,
+        building: data.building,
         invoicedBy: data.invoicedBy,
         jobType: data.jobType,
         timeQuoted: data.timeQuoted,
@@ -28,7 +28,7 @@ exports.SaveJob2 = functions.https.onCall((data, context) => {
     })
 })
 
-exports.SaveSupplier = functions.https.onCall((data, context) => {
+exports.Supplier = functions.https.onCall((data, context) => {
     return admin.firestore().collection('Suppliers').add({
         name: data.name,
         contact: data.contact,
@@ -38,14 +38,62 @@ exports.SaveSupplier = functions.https.onCall((data, context) => {
     })
 })
 
-exports.SaveCustomer2 = functions.https.onCall((data, context) => {
-    return admin.firestore().collection('Customers2').add({
+
+
+exports.Building = functions.https.onCall((data, context) => {
+    return admin.firestore().collection('Buildings').add({
         name: data.name,
-        contact: data.contact,
-        email: data.email,
-        phone: data.phone,
-        notes: data.notes,
-        buildings: data.buildings
+        address: data.address,
+        customer: data.customer,
+        invoiceToname: data.invoiceToname,
+        invoiceToemail: data.invoiceToemail,
+        buildingNotes: data.buildingNotes,
     })
 })
+
+
+exports.EditCustomer = functions.https.onCall((data, context) => {
+    return admin.firestore().collection('Customers').doc(data.id).update({name: data.name, 
+        contact: data.contact, 
+        email: data.email,
+        phone: data.phone,
+        notes: data.notes
+       })
+})
+
+exports.EditSupplier = functions.https.onCall((data, context) => {
+    return admin.firestore().collection('Suppliers').doc(data.id).update({name: data.name, 
+        contact: data.contact, 
+        email: data.email,
+        phone: data.phone,
+        notes: data.notes
+       })
+})
+
+
+exports.EditBuilding = functions.https.onCall((data, context) => {
+    return admin.firestore().collection('Buildings').doc(data.id).update({name: data.name, 
+        customer: data.customer, 
+        address: data.address,
+        invoiceToname: data.invoiceToname,
+        invoiceToemail: data.invoiceToemail,
+        buildingNotes: data.buildingNotes
+       })
+})
+
+exports.EditJob = functions.https.onCall((data, context) => {
+    return admin.firestore().collection('Jobs').doc(data.id).update({
+        building: data.building, 
+        invoicedBy: data.invoicedBy, 
+        jobType: data.jobType,
+        timeQuoted: data.timeQuoted,
+        timeSpent: data.timeSpent,
+        totalPrice: data.totalPrice,
+        dateQuoted: data.dateQuoted,
+        dateInvoiced: data.dateInvoiced,
+        materialsNotes: data.materialsNotes
+       })
+})
+
+
 

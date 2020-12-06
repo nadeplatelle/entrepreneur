@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
-import FormDialog from '../MakeModal'
-import RecipeReviewCard from '../Card'
+import EditCustomerDialog from '../CompanyDialog'
+import ReviewCard from '../Card'
 import '../display.css'
 import {db} from '../firebase'
 
@@ -18,11 +18,11 @@ function Suppliers() {
     return (
         <div>
            <h1 className="h1">Suppliers</h1> 
-           <FormDialog functionname={'SaveSupplier'} />
+           <EditCustomerDialog functionname={'Supplier'} heading='Create New supplier' id ='' title ='' subheader = '' emailadd = '' phonenum = '' notes2 = ''/>
            <div className="display__grid">
            {
         suppliers.map(({id, supplier}) => (
-          <RecipeReviewCard type="Suppliers" id={id} title={supplier.name} subheader={supplier.contact} email={supplier.email} phone={supplier.phone} notes={supplier.notes}/>
+          <ReviewCard type="Suppliers" id={id} title={supplier.name} subheader={supplier.contact} email={supplier.email} phone={supplier.phone} notes={supplier.notes}/>
             ))
            }   
             </div>

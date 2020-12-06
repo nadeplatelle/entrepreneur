@@ -1,9 +1,9 @@
 import React,{useState, useEffect} from 'react'
-import FormDialog from '../MakeModal'
-import RecipeReviewCard from '../Card'
+import ReviewCard from '../Card'
 import '../display.css'
 import {db} from '../firebase'
 import Dropdown from '../dropdown'
+import CompanyDialog from '../CompanyDialog'
 
 
 
@@ -42,12 +42,12 @@ import Dropdown from '../dropdown'
                    onChange={(val) => setValue(val)}
       /> 
       </div>
-             <FormDialog functionname={'SaveCustomer'} />
+             <CompanyDialog functionname={'Customer'} heading='Create New Customer' id ='' title ='' subheader = '' emailadd = '' phonenum = '' notes2 = ''/>
              <div className="display__grid">
 
              {
         customers.map(({id, customer}) => (
-          <RecipeReviewCard type = "Customers" id={id} title={customer.name} subheader={customer.contact} email={customer.email} phone={customer.phone} notes={customer.notes}/>
+          <ReviewCard type = "Customers" id={id} title={customer.name} subheader={customer.contact} email={customer.email} phone={customer.phone} notes={customer.notes}/>
             ))
            }   
 

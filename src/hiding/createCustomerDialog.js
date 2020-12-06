@@ -13,7 +13,6 @@ import './display.css'
 export default function FormDialog({functionname}) {
     const [name, setName] = useState("");
 const [contact, setContact] = useState("");
-//const [description, setDescription] = useState("");
 const [email, setEmail] = useState("");
 const [phone, setPhone] = useState("");
 const [notes, setNotes] = useState("");
@@ -46,7 +45,7 @@ const [notes, setNotes] = useState("");
   return (
     <div className="Button">
       <Button variant="outlined" color="primary"  onClick={handleClickOpen}>
-        Add New 
+        Add New {functionname}
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Add New Customer</DialogTitle>
@@ -92,7 +91,7 @@ const [notes, setNotes] = useState("");
             margin="dense"
             value={notes} onChange={(e) => setNotes(e.target.value)}
             id="notes"
-            label="notes"
+            label="Notes"
             type="text"
             fullWidth
             multiline

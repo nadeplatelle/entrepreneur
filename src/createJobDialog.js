@@ -25,8 +25,8 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function CreateJobDialog() {
-  const [customers, setCustomers] = useState([])
-    const [value, setValue] = useState(null);
+  const [buildings, setBuildings] = useState([])
+    const [building, setBuilding] = useState(null);
     const [invoicedBy, setInvoicedby] = useState("");
     const [jobType, setJobtype] = useState("");
     const [timeQuoted, setTimequoted] = useState("");
@@ -48,10 +48,10 @@ export default function CreateJobDialog() {
     ]
 
     useEffect(() => {
-      db.collection('Customers').onSnapshot(snapshot => {
-        setCustomers(snapshot.docs.map(doc => ({
+      db.collection('Buildings').onSnapshot(snapshot => {
+        setBuildings(snapshot.docs.map(doc => ({
           id: doc.id,
-          customer: doc.data().name 
+          building: doc.data().name 
          })) )
       })
    }, [])
@@ -69,8 +69,8 @@ export default function CreateJobDialog() {
   };
   const handleSave = (event) => {
         event.preventDefault()
-        const SaveJob = firebaseApp.functions().httpsCallable('SaveJob2')
-       SaveJob({customer: value, 
+        const SaveJob = firebaseApp.functions().httpsCallable('Job')
+       SaveJob({building: building, 
                  invoicedBy: invoicedBy, 
                  jobType: jobType,
                  timeQuoted: timeQuoted,
@@ -93,7 +93,7 @@ export default function CreateJobDialog() {
   return (
     <div className="Button">
       <Button variant="outlined" color="primary"  onClick={handleClickOpen}>
-        Add New 
+        Add New Job
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title">Add New Job</DialogTitle>
@@ -103,12 +103,12 @@ export default function CreateJobDialog() {
         
        <Dropdown
         className="dropdown"
-        prompt='Select customer...'
-        options={customers}
+        prompt='Select building...'
+        options={buildings}
         id='id'
-        label='customer'
-        value={value}
-        onChange={(val) => setValue(val)}
+        label='building'
+        value={building}
+        onChange={(val) => setBuilding(val)}
       /> 
        <Dropdown
        className="dropdown"

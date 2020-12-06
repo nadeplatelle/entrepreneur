@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom'
 import {Card} from '@material-ui/core'
 import CreditCardIcon from '@material-ui/icons/CreditCard';
 import PeopleIcon from '@material-ui/icons/People';
+import BusinessIcon from '@material-ui/icons/Business';
 import WorkIcon from '@material-ui/icons/Work';
 import HomeIcon from '@material-ui/icons/Home';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
@@ -28,10 +29,15 @@ function Navigation() {
            <HomeIcon/>
            <Link to="/" class="link">Home</Link>
            </Card>
+           <Card class="card">
+           <BusinessIcon/>
+           <Link to="/buildings" class="link">Buildings</Link>
+           </Card>
           <Card class="card">
            <PeopleIcon/>
            <Link to="/customers" class="link">Customers</Link>
            </Card>
+
            <Card class="card">
            <WorkIcon/>
            <Link to="/Jobs" class="link">Jobs</Link>

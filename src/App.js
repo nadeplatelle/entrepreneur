@@ -1,6 +1,7 @@
 import './App.css';
 import Navigation from './Navigation'
 import Main from './pages/Main'
+import Buildings from './pages/Buildings'
 import Jobs from './pages/Jobs'
 import Customer from './pages/Customer'
 import Suppliers from './pages/Suppliers'
@@ -19,6 +20,10 @@ function App() {
         </div>
         <div className="Main">
         <Switch>
+        <Route path = '/buildings'>
+      
+         <Buildings/>
+      </Route>
       <Route path = '/customers'>
       
          <Customer/>

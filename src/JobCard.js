@@ -14,7 +14,7 @@ import './Card.css'
 import CustomizedMenus from './PopupMenu'
 import {db} from './firebase'
 import DeleteIcon from '@material-ui/icons/Delete';
-import CompanyDialog from './CompanyDialog'
+import EditJobDialog from './EditJob'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -43,7 +43,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function ReviewCard({type, id, title, subheader, email, phone, notes}) {
+
+export default function JobCard({id, building, invoicedBy, jobType, timeQuoted, timeSpent, totalPrice, dateQuoted, dateInvoiced, materialsNotes}) {
 
     const classes = useStyles();
     const [expanded, setExpanded] = React.useState(false);
@@ -51,15 +52,11 @@ export default function ReviewCard({type, id, title, subheader, email, phone, no
     const handleExpandClick = () => {
       setExpanded(!expanded);
     };
-    
 
     const DeleteMe = () => {
-      db.collection(type).doc(id).delete();
+      db.collection('Jobs').doc(id).delete();
     } 
-    const functionsname =
-    type==='Customers'?'EditCustomer':'EditSupplier'
-    const heading=
-    type==='Customers'?'Edit Customer':'Edit Supplier'
+  
     return (
       <Card className={classes.root}>
         <CardHeader
@@ -69,20 +66,24 @@ export default function ReviewCard({type, id, title, subheader, email, phone, no
               <CustomizedMenus />
             </IconButton>
           }
-          title={title}
-          subheader={subheader}
+          title={building}
+          subheader={jobType}
         />
         
         <CardContent>
           <Typography variant="body2" color="textSecondary" component="p">
-            Email:  {email}
+            Date Quoted:  {dateQuoted}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Phone:  {phone}
+            Date Invoiced:  {dateInvoiced}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+          Total Price:  {totalPrice}  
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
-        <CompanyDialog functionname ={functionsname} heading={heading} id={id} title={title} subheader={subheader} emailadd={email} phonenum={phone} notes2={notes}/>
+
+         <EditJobDialog  id={id} bldg={building} invBy={invoicedBy} jType={jobType} tQuoted={timeQuoted} tSpent={timeSpent} tPrice={totalPrice} dQuoted={dateQuoted} dInvoiced={dateInvoiced} mNotes={materialsNotes}/> 
           <IconButton aria-label="Delete" onClick={DeleteMe} >
           <DeleteIcon/>
           </IconButton>
@@ -100,11 +101,11 @@ export default function ReviewCard({type, id, title, subheader, email, phone, no
         </CardActions>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
-            <Typography paragraph>Notes:</Typography>
+            <Typography paragraph>Material Notes:</Typography>
             <Typography paragraph>
-              {notes}
+              {materialsNotes}
             </Typography>
-          
+        N
           </CardContent>
         </Collapse>
       </Card>
