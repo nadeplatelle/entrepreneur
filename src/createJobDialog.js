@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import firebaseApp, {db} from './firebase'
+import React, {useState} from 'react';
+import firebaseApp  from './firebase'
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -8,7 +8,9 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import './display.css'
-import Dropdown from "./dropdown";
+import JobTypeCombo from './components/JobTypeCombo'
+import BuildCombo from './components/BuildCombo'
+
 const useStyles = makeStyles((theme) => ({
   container: {
     display: 'flex',
@@ -24,37 +26,24 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function CreateJobDialog() {
-  const [buildings, setBuildings] = useState([])
-    const [building, setBuilding] = useState(null);
-    const [invoicedBy, setInvoicedby] = useState("");
-    const [jobType, setJobtype] = useState("");
-    const [timeQuoted, setTimequoted] = useState("");
-    const [timeSpent, setTimespent] = useState("");
-    const [totalPrice, setTotalprice] = useState("");
-    const [dateQuoted, setDatequoted] = useState(null);
-    const [dateInvoiced, setDateinvoiced] = useState(null);
-    const [materialsNotes, setMaterialsnotes] = useState("");
+export default function CreateJobDialog({ id, bldg, invBy, jType, tQuoted, tSpent, tPrice, dQuoted, dInvoiced, mNotes }) {
+ 
+    const [building, setBuilding] = useState(bldg);
+    const [invoicedBy, setInvoicedBy] = useState(invBy);
+    const [jobType, setJobType] = useState(jType);
+    const [timeQuoted, setTimequoted] = useState(tQuoted);
+    const [timeSpent, setTimespent] = useState(tSpent);
+    const [totalPrice, setTotalprice] = useState(tPrice);
+    const [dateQuoted, setDatequoted] = useState(dQuoted);
+    const [dateInvoiced, setDateinvoiced] = useState(dInvoiced);
+    const [materialsNotes, setMaterialsnotes] = useState(mNotes);
+
     const InvBy = [
       { "name": "Tekvision" },
       { "name": "Absolute Fire" }]
-    const JobTyp = [
-      { "name": "Fire Installation", "code": "FI" },
-      { "name": "Fire Service", "code": "FS" },
-      { "name": "Gate Repair", "code": "GR" },
-      { "name": "Network Cabling", "code": "NC" },
-      { "name": "Intercom Installation", "code": "II" },
-      { "name": "Other", "code": "O" }
-    ]
+    
 
-    useEffect(() => {
-      db.collection('Buildings').onSnapshot(snapshot => {
-        setBuildings(snapshot.docs.map(doc => ({
-          id: doc.id,
-          building: doc.data().name 
-         })) )
-      })
-   }, [])
+   
    const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -80,11 +69,7 @@ export default function CreateJobDialog() {
                  dateInvoiced: dateInvoiced,
                  materialsNotes: materialsNotes
                 })
-                setInvoicedby('')
-                setJobtype('')
-                setTimequoted('')
-                setTimespent('')
-                setTotalprice('')
+               
  
                 setMaterialsnotes('')
      setOpen(false);
@@ -100,34 +85,19 @@ export default function CreateJobDialog() {
         <DialogContent>
           
           <form>
-        
-       <Dropdown
-        className="dropdown"
-        prompt='Select building...'
-        options={buildings}
-        id='id'
-        label='building'
-        value={building}
-        onChange={(val) => setBuilding(val)}
-      /> 
-       <Dropdown
-       className="dropdown"
-        prompt='Select Invoiced by...'
-        options={InvBy}
-        id='code'
-        label='name'
-        value={invoicedBy}
-        onChange={(val) => setInvoicedby(val)}
-      /> 
-       <Dropdown
-       className="dropdown"
-        prompt='Select Job Type...'
-        options={JobTyp}
-        id='code'
-        label='name'
-        value={jobType}
-        onChange={(val) => setJobtype(val)}
-      /> 
+          <BuildCombo handleChange={building => setBuilding(building)} value={bldg} />
+          
+          <TextField
+            margin="dense"
+            value={invoicedBy} onChange={(e) => setInvoicedBy(e.target.value)}
+            id="invoicedBy"
+            label="Invoiced By"
+            type="text"
+            fullWidth
+          />
+          <JobTypeCombo handleChange={jobType => setJobType(jobType)} value={jType}/>
+      
+     
        <TextField
                  id="datequoted"
                  label="Date Quoted"

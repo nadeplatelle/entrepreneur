@@ -29,7 +29,7 @@ function Buildings() {
 {
           buildings.map(({id, building}) => (
           <BuildingCard 
-          id = {id} name = {building.name} customer = {building.customer.customer} address = {building.address} invoiceToname ={building.invoiceToname} invoiceToemail={building.invoiceToemail} buildingNotes = {building.buildingNotes}
+          id = {id} name = {building.name} customer = {building.customer} address = {building.address} invoiceToname ={building.invoiceToname} invoiceToemail={building.invoiceToemail} buildingNotes = {building.buildingNotes}
           />
            ))
             }   

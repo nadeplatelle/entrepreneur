@@ -14,7 +14,7 @@ import './Card.css'
 import CustomizedMenus from './PopupMenu'
 import {db} from './firebase'
 import DeleteIcon from '@material-ui/icons/Delete';
-import EditJobDialog from './EditJob'
+import JobDialog from './JobDialog'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -83,7 +83,7 @@ export default function JobCard({id, building, invoicedBy, jobType, timeQuoted, 
         </CardContent>
         <CardActions disableSpacing>
 
-         <EditJobDialog  id={id} bldg={building} invBy={invoicedBy} jType={jobType} tQuoted={timeQuoted} tSpent={timeSpent} tPrice={totalPrice} dQuoted={dateQuoted} dInvoiced={dateInvoiced} mNotes={materialsNotes}/> 
+         <JobDialog functionname={'EditJob'} id={id} bldg={building} invBy={invoicedBy} jType={jobType} tQuoted={timeQuoted} tSpent={timeSpent} tPrice={totalPrice} dQuoted={dateQuoted} dInvoiced={dateInvoiced} mNotes={materialsNotes}/> 
           <IconButton aria-label="Delete" onClick={DeleteMe} >
           <DeleteIcon/>
           </IconButton>

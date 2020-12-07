@@ -7,11 +7,12 @@ import EditIcon from '@material-ui/icons/Edit';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import IconButton from '@material-ui/core/IconButton';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import './display.css'
 import {Tooltip} from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add';
+import CustCombo from './components/CustCombo'
+
 
 
 
@@ -75,15 +76,7 @@ export default function BuildingDialog({functionname, heading, id, bldgname, bld
             type="text"
             fullWidth
           />
-          <TextField
-            margin="dense"
-            value={customer} onChange={(e) => setCustomer(e.target.value)}
-            id="customer"
-            label="Customer"
-            type="text"
-            disabled="true"
-            fullWidth
-          />
+           <CustCombo handleChange={customer => setCustomer(customer)} value={bldgcustomer}/>
          
           <TextField
             margin="dense"

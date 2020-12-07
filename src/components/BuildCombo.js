@@ -2,55 +2,53 @@ import React,{useState, useEffect} from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
-import {db} from './firebase'
+import {db} from '../firebase'
 
 
 
 const useStyles = makeStyles((theme) => ({
   root: {
     '& .MuiTextField-root': {
-      margin: theme.spacing(1),
-      width: '60ch',
+      margin: '15',
+      width: '64ch',
     },
   },
 }));
 
-export default function MultilineTextFields(props) {
+export default function CustCombo(props) {
     const classes = useStyles();
 
-    const [customers, setCustomers] = useState([])
-    const [customer, setCustomer] = useState("")
+    const [buildings, setBuildings] = useState([])
+    const [building, setBuilding] = useState(props.value)
 
     useEffect(() => {
-        db.collection('Customers').orderBy('name').onSnapshot(snapshot => {
-          setCustomers(snapshot.docs.map(doc => ({
+        db.collection('Buildings').orderBy('name').onSnapshot(snapshot => {
+          setBuildings(snapshot.docs.map(doc => ({
             id: doc.id,
-            customer: doc.data(),
-            customername: doc.data().name
+            building: doc.data(),
+            buildingname: doc.data().name
            })) )
         })
      }, [])
 
    const change = (event) => {
-     setCustomer(event.target.value);
+     setBuilding(event.target.value);
    };
 
-  console.log(customers)
+
   return (
     <form className={classes.root} noValidate autoComplete="off">
       <div>
         <TextField
           id="Customer"
           select
-          label="Customer"
-          fullwidth
-          value={customer}
+          label="Building"
+          value={building}
            onChange={(event) =>{ change(event); props.handleChange(event.target.value)}}
-          helperText="Please select the customer"
         >
-          {customers.map((option) => (
-            <MenuItem key={option.customername}value={option.customername}>
-              {option.customername}
+          {buildings.map((option) => (
+            <MenuItem key={option.buildingname}value={option.buildingname}>
+              {option.buildingname}
             </MenuItem>
           ))}
         </TextField>
